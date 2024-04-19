@@ -33,14 +33,14 @@ class CipherVaultConfig {
   /// [countAttemp] - The number of possible replacements when the
   ///  password is declassified. The standard value is 5
   const CipherVaultConfig({
-    required this.alphabetCipherVault,
-    required this.minLenghtCipherVault,
-    required this.maxLenghtCipherVault,
-    required this.updateAnimationUpdate,
-    required this.updatePasswordAnimationUpdate,
-    required this.showAnimationFrequency,
-    required this.showPasswordAnimationFrequency,
-    required this.countAttemp,
+    this.alphabetCipherVault,
+    this.minLenghtCipherVault,
+    this.maxLenghtCipherVault,
+    this.updateAnimationUpdate,
+    this.updatePasswordAnimationUpdate,
+    this.showAnimationFrequency,
+    this.showPasswordAnimationFrequency,
+    this.countAttemp,
   });
 
   /// @return CipherVaultConfig with defaultValues

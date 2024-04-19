@@ -1,39 +1,96 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Cipher Vault
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+<img src="https://raw.githubusercontent.com/MixKage/cipher_vault/main/.github/images/logo.gif" />
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+# Example of using
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+The simplest example is when we have two states. We don't know the password - we display the animation. We know the password - we display an animation that will eventually show the password.
 
 ```dart
-const like = 'sample';
+if (visibleSecret) {
+    CipherVault(
+        key: UniqueKey(),
+        secret: 'cipher_vault',
+    ),
+} else{
+    CipherVault(
+        key: UniqueKey(),
+    )
+}
 ```
 
-## Additional information
+When the password is shown at the end of the animation, we can copy using Selectable Text or use our copy widget
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+CipherVault(
+    secret: 'cipher_vault',
+    buttonCopy: YourButtonCopyWidget(),
+),
+```
+
+<img src="https://raw.githubusercontent.com/MixKage/cipher_vault/main/.github/images/example_with_copy.gif" />
+
+You can fine-tune the animation using the configurator. For example, to adjust the animation speed or to use other languages
+
+```dart
+CipherVault(
+    secret: 'cipher_vault',
+    config: CipherVaultConfig(
+        alphabetCipherVault: myAlphabet,
+        minLenghtCipherVault: 5,
+        maxLenghtCipherVault: 12,
+    ),
+),
+```
+
+All available settings at the moment
+
+```dart
+/// VaultConfig - Fine-tuning the CipherVault
+///
+/// [alphabetCipherVault] - The symbols that can make
+///  up the animation of the secret
+///
+/// [minLenghtCipherVault] - Minimum secret length
+///
+/// [maxLenghtCipherVault] - Maximum secret length
+///
+/// [updateAnimationUpdate] - Animation widget refresh rate
+///
+/// [updatePasswordAnimationUpdate] - Refresh rate of the password
+///  display animation widget
+///
+/// [showAnimationFrequency] - How often characters are replaced when
+///  animating a classified secret. The standard value is 0.2
+///
+/// [showPasswordAnimationFrequency] - How often characters are replaced
+///  when animating the declassification of a secret.
+///  The standard value is 0.5
+///
+/// [countAttemp] - The number of possible replacements when the
+///  password is declassified. The standard value is 5
+const CipherVaultConfig({
+    required this.alphabetCipherVault,
+    required this.minLenghtCipherVault,
+    required this.maxLenghtCipherVault,
+    required this.updateAnimationUpdate,
+    required this.updatePasswordAnimationUpdate,
+    required this.showAnimationFrequency,
+    required this.showPasswordAnimationFrequency,
+    required this.countAttemp,
+});
+```
+
+# Changelog
+
+[Refer to the Changelog to get all release notes.](https://github.com/MixKage/cipher_vault/blob/main/CHANGELOG.md)
+
+# Maintainers
+
+[Valerij Shishov](https://github.com/MixKage)
+
+This library is open for issues and pull requests. If you have ideas for improvements or bugs, the repository is open to contributions!
+
+# License
+
+[MIT](https://opensource.org/license/mit/)
