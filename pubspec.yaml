@@ -4,7 +4,7 @@ version: 1.0.0
 repository: https://github.com/MixKage/cipher_vault
 homepage: https://github.com/MixKage/cipher_vault
 issue_tracker: https://github.com/MixKage/cipher_vault/issues
-topics: ["cipher_vault", "secrets", "passwords", "widgets"]
+topics: ["cipher-vault", "secrets", "passwords", "widgets", "animation"]
 
 
 environment:

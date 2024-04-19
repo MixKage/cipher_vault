@@ -23,7 +23,7 @@ When the password is shown at the end of the animation, we can copy using Select
 
 ```dart
 CipherVault(
-    secret: 'cipher_vault',
+    secret: 'My Password',
     buttonCopy: YourButtonCopyWidget(),
 ),
 ```
