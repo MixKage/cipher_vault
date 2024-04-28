@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 /// Depending on the argument, is it a secret?
 ///  displays either an animation or a secret
 class CipherVault extends StatefulWidget {
-  final Widget? buttonCopy;
+  final Widget buttonCopy;
   final TextStyle? textStyle;
   final String? secret;
   final CipherVaultConfig? config;
@@ -27,7 +27,7 @@ class CipherVault extends StatefulWidget {
     super.key,
     this.secret,
     this.textStyle,
-    this.buttonCopy,
+    this.buttonCopy = const SizedBox.shrink(),
     this.config,
   });
 
@@ -37,16 +37,26 @@ class CipherVault extends StatefulWidget {
 
 class _CipherVaultState extends State<CipherVault> {
   late String runningText;
-  late Timer timer;
-  late CipherVaultConfig config;
+  Timer? timer;
+  late final CipherVaultConfig config =
+      widget.config ?? const CipherVaultConfig();
   final Random random = Random();
   bool isShowPassword = false;
 
   @override
   void initState() {
     super.initState();
-    config =
-        CipherVaultConfig.defaultValues().copyWithClass(config: widget.config);
+    if (widget.secret != null) {
+      showPassword(widget.secret!);
+    } else {
+      showCipherVault();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant final CipherVault oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    timer?.cancel();
     if (widget.secret != null) {
       showPassword(widget.secret!);
     } else {
@@ -56,18 +66,20 @@ class _CipherVaultState extends State<CipherVault> {
 
   @override
   void dispose() {
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
   }
 
   void showCipherVault() {
     runningText = _generateRandomString();
+    timer?.cancel();
     timer = Timer.periodic(
       const Duration(milliseconds: 100),
       (final t) {
         setState(
           () {
             runningText = _generateRunningText();
+            isShowPassword = false;
           },
         );
       },
@@ -75,22 +87,23 @@ class _CipherVaultState extends State<CipherVault> {
   }
 
   void showPassword(final String password) {
-    final List<int> runnigCharsAttemp = List.filled(password.length, 0);
-    runningText = _generateRandomString(lenght: password.length);
+    timer?.cancel();
+    final List<int> runningCharsAttemp = List.filled(password.length, 0);
+    runningText = _generateRandomString(length: password.length);
     timer = Timer.periodic(
-      const Duration(milliseconds: 100),
+      config.updateAnimationUpdate,
       (final t) {
         setState(
           () {
             runningText = _generateShowPassword(
-              runnigCharsAttemp,
+              runningCharsAttemp,
               password,
             );
           },
         );
 
         if (runningText == password) {
-          timer.cancel();
+          timer?.cancel();
           setState(
             () {
               isShowPassword = true;
@@ -101,26 +114,25 @@ class _CipherVaultState extends State<CipherVault> {
     );
   }
 
-  String _generateRandomString({final int? lenght}) {
-    final int length = lenght ??
-        config.minLenghtCipherVault! +
+  String _generateRandomString({final int? length}) {
+    final int stringLength = length ??
+        (config.minLengthCipherVault +
             random.nextInt(
-              config.maxLenghtCipherVault! - config.minLenghtCipherVault! + 1,
-            );
-
+              config.maxLengthCipherVault - config.minLengthCipherVault + 1,
+            ));
     return List.generate(
-      length,
-      (final index) => config.alphabetCipherVault![
-          random.nextInt(config.alphabetCipherVault!.length)],
+      stringLength,
+      (final index) => config.alphabetCipherVault[
+          random.nextInt(config.alphabetCipherVault.length)],
     ).join();
   }
 
   String _generateRunningText() {
     final List<String> runningChars = runningText.split('');
     for (int i = 0; i < runningChars.length; i++) {
-      if (random.nextDouble() < config.showAnimationFrequency!) {
-        runningChars[i] = config.alphabetCipherVault![
-            random.nextInt(config.alphabetCipherVault!.length)];
+      if (random.nextDouble() < config.showAnimationFrequency) {
+        runningChars[i] = config.alphabetCipherVault[
+            random.nextInt(config.alphabetCipherVault.length)];
       }
     }
     return runningChars.join();
@@ -132,14 +144,14 @@ class _CipherVaultState extends State<CipherVault> {
   ) {
     final List<String> runningChars = runningText.split('');
     for (int i = 0; i < runningChars.length; i++) {
-      if (random.nextDouble() < config.showPasswordAnimationFrequency!) {
-        if (runnigCharsAttemp[i] > config.countAttemp!) {
+      if (random.nextDouble() < config.showPasswordAnimationFrequency) {
+        if (runnigCharsAttemp[i] > config.countAttemp) {
           runningChars[i] = password[i];
           continue;
         }
         runnigCharsAttemp[i]++;
-        runningChars[i] = config.alphabetCipherVault![
-            random.nextInt(config.alphabetCipherVault!.length)];
+        runningChars[i] = config.alphabetCipherVault[
+            random.nextInt(config.alphabetCipherVault.length)];
       }
     }
     return runningChars.join();
@@ -149,20 +161,11 @@ class _CipherVaultState extends State<CipherVault> {
   Widget build(final BuildContext context) => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (isShowPassword)
-            SelectableText(
-              runningText,
-              style: widget.textStyle,
-            )
-          else
-            Text(
-              runningText,
-              style: widget.textStyle,
-            ),
-          if (isShowPassword)
-            const SizedBox.shrink()
-          else
-            widget.buttonCopy ?? const SizedBox.shrink(),
+          SelectableText(
+            runningText,
+            style: widget.textStyle,
+          ),
+          if (isShowPassword) widget.buttonCopy,
         ],
       );
 }
