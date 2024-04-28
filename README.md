@@ -7,16 +7,9 @@
 The simplest example is when we have two states. We don't know the password - we display the animation. We know the password - we display an animation that will eventually show the password.
 
 ```dart
-if (visibleSecret) {
-    CipherVault(
-        key: UniqueKey(),
-        secret: 'cipher_vault',
-    ),
-} else{
-    CipherVault(
-        key: UniqueKey(),
-    )
-}
+CipherVault(
+    secret: _isShowSecretBool ? 'cipher_vault' : null,
+),
 ```
 
 When the password is shown at the end of the animation, we can copy using Selectable Text or use our copy widget
@@ -30,18 +23,21 @@ CipherVault(
 
 <img src="https://raw.githubusercontent.com/MixKage/cipher_vault/main/.github/images/example_with_copy.gif" />
 
-You can fine-tune the animation using the configurator. For example, to adjust the animation speed or to use other languages
+You can fine-tune the animation using the configurator. For example, to adjust the animation speed or to use other languages. Check Example in lib
 
 ```dart
 CipherVault(
-    secret: 'cipher_vault',
+    secret: 'Мой секрет 3',
+    textStyle: const TextStyle(fontSize: 18.0),
     config: CipherVaultConfig(
         alphabetCipherVault: myAlphabet,
-        minLenghtCipherVault: 5,
-        maxLenghtCipherVault: 12,
+        minLenghtCipherVault: 10,
+        maxLenghtCipherVault: 20,
     ),
 ),
 ```
+
+<img src="https://raw.githubusercontent.com/MixKage/cipher_vault/main/.github/images/example_with_another_alphabet.gif" />
 
 All available settings at the moment
 
@@ -88,6 +84,7 @@ const CipherVaultConfig({
 # Maintainers
 
 [Valerij Shishov](https://github.com/MixKage)
+[Igor Molchanov](https://github.com/meg4cyberc4t)
 
 This library is open for issues and pull requests. If you have ideas for improvements or bugs, the repository is open to contributions!
 
