@@ -1,22 +1,22 @@
 /// Fine-tuning the CipherVault
 class CipherVaultConfig {
-  final String? alphabetCipherVault;
-  final int? minLenghtCipherVault;
-  final int? maxLenghtCipherVault;
-  final Duration? updateAnimationUpdate;
-  final Duration? updatePasswordAnimationUpdate;
-  final double? showAnimationFrequency;
-  final double? showPasswordAnimationFrequency;
-  final int? countAttemp;
+  final String alphabetCipherVault;
+  final int minLengthCipherVault;
+  final int maxLengthCipherVault;
+  final Duration updateAnimationUpdate;
+  final Duration updatePasswordAnimationUpdate;
+  final double showAnimationFrequency;
+  final double showPasswordAnimationFrequency;
+  final int countAttemp;
 
   /// VaultConfig - Fine-tuning the CipherVault
   ///
   /// [alphabetCipherVault] - The symbols that can make
   ///  up the animation of the secret
   ///
-  /// [minLenghtCipherVault] - Minimum secret length
+  /// [minLengthCipherVault] - Minimum secret length
   ///
-  /// [maxLenghtCipherVault] - Maximum secret length
+  /// [maxLengthCipherVault] - Maximum secret length
   ///
   /// [updateAnimationUpdate] - Animation widget refresh rate
   ///
@@ -33,29 +33,16 @@ class CipherVaultConfig {
   /// [countAttemp] - The number of possible replacements when the
   ///  password is declassified. The standard value is 5
   const CipherVaultConfig({
-    this.alphabetCipherVault,
-    this.minLenghtCipherVault,
-    this.maxLenghtCipherVault,
-    this.updateAnimationUpdate,
-    this.updatePasswordAnimationUpdate,
-    this.showAnimationFrequency,
-    this.showPasswordAnimationFrequency,
-    this.countAttemp,
+    this.alphabetCipherVault = 'abcdefghijklmnopqrstuvwxyz'
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#%^&*()-_=+',
+    this.minLengthCipherVault = 7,
+    this.maxLengthCipherVault = 16,
+    this.updateAnimationUpdate = const Duration(milliseconds: 100),
+    this.updatePasswordAnimationUpdate = const Duration(milliseconds: 100),
+    this.showAnimationFrequency = 0.2,
+    this.showPasswordAnimationFrequency = 0.5,
+    this.countAttemp = 5,
   });
-
-  /// @return CipherVaultConfig with defaultValues
-  factory CipherVaultConfig.defaultValues() => const CipherVaultConfig(
-        alphabetCipherVault:
-            // ignore: lines_longer_than_80_chars
-            'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#%^&*()-_=+',
-        minLenghtCipherVault: 7,
-        maxLenghtCipherVault: 16,
-        updateAnimationUpdate: Duration(milliseconds: 100),
-        updatePasswordAnimationUpdate: Duration(milliseconds: 100),
-        showAnimationFrequency: 0.2,
-        showPasswordAnimationFrequency: 0.5,
-        countAttemp: 5,
-      );
 
   CipherVaultConfig copyWith({
     final String? alphabetCipherVault,
@@ -69,8 +56,8 @@ class CipherVaultConfig {
   }) =>
       CipherVaultConfig(
         alphabetCipherVault: alphabetCipherVault ?? this.alphabetCipherVault,
-        minLenghtCipherVault: minLenghtCipherVault ?? this.minLenghtCipherVault,
-        maxLenghtCipherVault: maxLenghtCipherVault ?? this.maxLenghtCipherVault,
+        minLengthCipherVault: minLenghtCipherVault ?? minLengthCipherVault,
+        maxLengthCipherVault: maxLenghtCipherVault ?? maxLengthCipherVault,
         updateAnimationUpdate:
             updateAnimationUpdate ?? this.updateAnimationUpdate,
         updatePasswordAnimationUpdate:
@@ -87,10 +74,10 @@ class CipherVaultConfig {
   }) =>
       CipherVaultConfig(
         alphabetCipherVault: config?.alphabetCipherVault ?? alphabetCipherVault,
-        minLenghtCipherVault:
-            config?.minLenghtCipherVault ?? minLenghtCipherVault,
-        maxLenghtCipherVault:
-            config?.maxLenghtCipherVault ?? maxLenghtCipherVault,
+        minLengthCipherVault:
+            config?.minLengthCipherVault ?? minLengthCipherVault,
+        maxLengthCipherVault:
+            config?.maxLengthCipherVault ?? maxLengthCipherVault,
         updateAnimationUpdate:
             config?.updateAnimationUpdate ?? updateAnimationUpdate,
         updatePasswordAnimationUpdate: config?.updatePasswordAnimationUpdate ??
@@ -106,8 +93,8 @@ class CipherVaultConfig {
   @override
   String toString() =>
       'CipherVaultConfig(alphabetCipherVault: $alphabetCipherVault, '
-      'minLenghtCipherVault: $minLenghtCipherVault, '
-      'maxLenghtCipherVault: $maxLenghtCipherVault, '
+      'minLenghtCipherVault: $minLengthCipherVault, '
+      'maxLenghtCipherVault: $maxLengthCipherVault, '
       'updateAnimationUpdate: $updateAnimationUpdate, '
       'updatePasswordAnimationUpdate: $updatePasswordAnimationUpdate, '
       'showAnimationFrequency: $showAnimationFrequency, '
@@ -116,13 +103,13 @@ class CipherVaultConfig {
 
   @override
   bool operator ==(covariant final CipherVaultConfig other) {
-    if (identical(this, other)) {
-      return true;
+    if (!identical(this, other)) {
+      return false;
     }
 
     return other.alphabetCipherVault == alphabetCipherVault &&
-        other.minLenghtCipherVault == minLenghtCipherVault &&
-        other.maxLenghtCipherVault == maxLenghtCipherVault &&
+        other.minLengthCipherVault == minLengthCipherVault &&
+        other.maxLengthCipherVault == maxLengthCipherVault &&
         other.updateAnimationUpdate == updateAnimationUpdate &&
         other.updatePasswordAnimationUpdate == updatePasswordAnimationUpdate &&
         other.showAnimationFrequency == showAnimationFrequency &&
@@ -134,8 +121,8 @@ class CipherVaultConfig {
   @override
   int get hashCode =>
       alphabetCipherVault.hashCode ^
-      minLenghtCipherVault.hashCode ^
-      maxLenghtCipherVault.hashCode ^
+      minLengthCipherVault.hashCode ^
+      maxLengthCipherVault.hashCode ^
       updateAnimationUpdate.hashCode ^
       updatePasswordAnimationUpdate.hashCode ^
       showAnimationFrequency.hashCode ^
