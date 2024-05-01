@@ -31,8 +31,8 @@ CipherVault(
     textStyle: const TextStyle(fontSize: 18.0),
     config: CipherVaultConfig(
         alphabetCipherVault: myAlphabet,
-        minLenghtCipherVault: 10,
-        maxLenghtCipherVault: 20,
+        minLengthCipherVault: 10,
+        maxLengthCipherVault: 20,
     ),
 ),
 ```
@@ -47,9 +47,9 @@ All available settings at the moment
 /// [alphabetCipherVault] - The symbols that can make
 ///  up the animation of the secret
 ///
-/// [minLenghtCipherVault] - Minimum secret length
+/// [minLengthCipherVault] - Minimum secret length
 ///
-/// [maxLenghtCipherVault] - Maximum secret length
+/// [maxLengthCipherVault] - Maximum secret length
 ///
 /// [updateAnimationUpdate] - Animation widget refresh rate
 ///
@@ -67,8 +67,8 @@ All available settings at the moment
 ///  password is declassified. The standard value is 5
 const CipherVaultConfig({
     required this.alphabetCipherVault,
-    required this.minLenghtCipherVault,
-    required this.maxLenghtCipherVault,
+    required this.minLengthCipherVault,
+    required this.maxLengthCipherVault,
     required this.updateAnimationUpdate,
     required this.updatePasswordAnimationUpdate,
     required this.showAnimationFrequency,
