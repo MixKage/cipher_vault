@@ -162,14 +162,18 @@ class _CipherVaultState extends State<CipherVault> {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (!isShowPassword)
-            Text(
-              runningText,
-              style: widget.textStyle,
+            Flexible(
+              child: Text(
+                runningText,
+                style: widget.textStyle,
+              ),
             )
           else
-            SelectableText(
-              runningText,
-              style: widget.textStyle,
+            Flexible(
+              child: SelectableText(
+                runningText,
+                style: widget.textStyle,
+              ),
             ),
           if (isShowPassword) widget.buttonCopy,
         ],

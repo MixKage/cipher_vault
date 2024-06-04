@@ -1,6 +1,6 @@
 name: cipher_vault
 description: "Widget that displays the secret Depending on the argument, is it a secret? displays either an animation or a secret"
-version: 1.1.1
+version: 1.1.2
 repository: https://github.com/MixKage/cipher_vault
 homepage: https://github.com/MixKage/cipher_vault
 issue_tracker: https://github.com/MixKage/cipher_vault/issues
